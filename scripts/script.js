@@ -132,9 +132,11 @@ const createTetrisGame = () => {
   const removeCompletedRows = () => {
     for (let row = rows - 1; row >= 0; row--) {
       if (board[row] && board[row].every((cell) => cell !== 0)) {
-        board.splice(row, 1);
-        board.unshift(Array(cols).fill(0));
-        score += 100;
+        if (!board[row].some((cell) => cell === 0)) {
+          board.splice(row, 1);
+          board.unshift(Array(cols).fill(0));
+          score += 100;
+        }
       }
     }
   };
